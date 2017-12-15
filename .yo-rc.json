@@ -1,0 +1,21 @@
+{
+  "generator-angm": {
+    "appName": "gamification",
+    "angularCookies": true,
+    "angularAnimate": true,
+    "angularSanitize": true,
+    "angularBootstrap": true,
+    "angularMaterial": true,
+    "modules": [
+      {
+        "name": "scoreboard"
+      }
+    ],
+    "menu": [
+      {
+        "link": "scoreboard",
+        "title": "Scoreboard"
+      }
+    ]
+  }
+}
