@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	/**
@@ -9,16 +9,34 @@
 	 * Service of the app
 	 */
 
-  	angular
+	angular
 		.module('scoreboard')
-		.factory('ScoreboardService', Scoreboard);
-		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
-		// function Name ($http, someSevide) {...}
+		.factory('scoreboardService', Scoreboard);
+	// Inject your dependencies as .$inject = ['$http', 'someSevide'];
+	// function Name ($http, someSevide) {...}
 
-		Scoreboard.$inject = ['$http'];
+	Scoreboard.$inject = ['$http'];
 
-		function Scoreboard ($http) {
+	function Scoreboard($http) {
+		let userScore = [];
 
+		return {
+			getUserScoreboard: function () {
+				return new Promise((resolve) => {
+
+					// fetch userScore from our API
+					$http.get("https://fcctop100.herokuapp.com/api/fccusers/top/recent")
+						.then(function (response) {
+							userScore = response.data;
+							// send back userScore
+							resolve(userScore);
+						});
+
+
+				});
+
+			}
 		}
+	}
 
 })();

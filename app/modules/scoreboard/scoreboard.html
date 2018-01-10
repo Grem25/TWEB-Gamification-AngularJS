@@ -1,7 +1,32 @@
 <div class="md-padding" flex layout-sm="column">
-    <md-card>
+    <md-card class="text-center">
         <md-card-content>
-            <h2 class="md-title">Content from: scoreboard page</h2>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="tableHeader">{{vm.title}}</div>
+                </div>
+            </div>
+            <table class="table-striped" ng-hide="!vm.usersScores.length">
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Level</th>
+                    <th>Score</th>
+                    <th>Battle</th>
+                </tr>
+                <tr ng-repeat="usr in vm.usersScores | orderBy: vm.sortColumn : vm.reverseSort">
+                    <td>{{$index+1}}</td>
+                    <td>{{usr.username}}</td>
+                    <td>{{usr.level}} 5</td>
+                    <td>{{usr.alltime}}</td>
+                    <td><a href="">Fight</a></td>
+                </tr>
+            </table>
+            <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="tableFooter">by <a href="www.github.com">Jérémie Zanone and Wojciech Myszkorowski</a></div>
+                    </div>
+                </div>
         </md-card-content>
     </md-card>
 </div>
