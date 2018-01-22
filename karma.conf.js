@@ -37,6 +37,11 @@ module.exports = function (config) {
 			'app/modules/scoreboard/scoreboardRoute.js',
 			'app/modules/scoreboard/scoreboardService.js',
 			'app/modules/scoreboard/scoreboard-test.js',
+			'app/modules/newuser/newuserModule.js',
+			'app/modules/newuser/newuserCtrl.js',
+			'app/modules/newuser/newuserRoute.js',
+			'app/modules/newuser/newuserService.js',
+			'app/modules/newuser/newuser-test.js',
 		],
 
 		// Test results reporter to use

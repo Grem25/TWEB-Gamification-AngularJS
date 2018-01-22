@@ -9,12 +9,19 @@
     "modules": [
       {
         "name": "scoreboard"
+      },
+      {
+        "name": "newuser"
       }
     ],
     "menu": [
       {
         "link": "scoreboard",
         "title": "Scoreboard"
+      },
+      {
+        "link": "newuser",
+        "title": "Newuser"
       }
     ]
   }

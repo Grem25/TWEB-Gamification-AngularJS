@@ -4,7 +4,7 @@
             <div layout="column" class="md-toolbar-tools-bottom inset">
                 <div layout="row">
                     <div flex="80" style="margin-top: 10px;">
-                        <div>gamification</div>
+                        <div>Gamification</div>
                     </div>
                 </div>
             </div>
@@ -23,13 +23,7 @@
                 <p > {{ item.name }}</p>
             </md-list-item>
             <md-divider></md-divider>
-            <md-subheader>Admin</md-subheader>
-            <md-list-item ng-repeat="item in vm.admin" ng-click="vm.showSettingsBottom($event)" >
-                <div class="inset">
-                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                </div>
-                <p> {{ item.title }}</p>
-            </md-list-item>
+           
         </md-list>
     </div>
 </md-sidenav>
@@ -40,7 +34,7 @@
             <md-button ng-click="layout.toggleSidenav('left')" hide-gt-md aria-label="Menu">
                 <ng-md-icon icon="menu"></ng-md-icon>
             </md-button>
-            <h3>gamification</h3>
+            <h3>Gamification</h3>
             <span flex></span>
             <md-button aria-label="Search" ng-click="showSearch = !showSearch">
                 <ng-md-icon icon="search"></ng-md-icon>

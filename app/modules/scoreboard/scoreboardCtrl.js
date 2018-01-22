@@ -26,7 +26,7 @@
 		var vm = this;
 		vm.title = 'Scoreboard';
 		vm.reverseSort = true;
-		vm.sortColumn = "alltime";
+		vm.sortColumn = "currentXP";
 
 		vm.fetchUsers = function () {
 			scoreboardService.getUserScoreboard()
@@ -36,16 +36,23 @@
 				});
 		}
 
+		vm.fightLauncher = function(username) {
+		
+			scoreboardService.postFight(username)
+					.then((data) => {
+						vm.fetchUsers();
+						$scope.$apply();
+					});
+		}
+
 		vm.sortData = function (column) {
-			$scope.reverseSort = ($scope.sortColumn == column) ? !$scope.reverseSort : false;
-			$scope.sortColumn = column;
+			vm.reverseSort = vm.sortColumn === column ? !vm.reverseSort : false;
+			vm.sortColumn = column;
 		}
 
 		vm.getSortClass = function (column) {
-			if ($scope.sortColumn == column) {
-				return $scope.reverseSort ? 'arrow-down' : 'arrow-up';
-			}
-			return '';
+			return vm.sortColumn === column ? 
+			(vm.reverseSort ? 'fa-caret-up' : 'fa-caret-down') : '';
 		}
 
 

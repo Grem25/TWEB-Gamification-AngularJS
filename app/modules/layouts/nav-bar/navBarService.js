@@ -26,6 +26,11 @@
 							name: 'Scoreboard'
 					},
 			    
+					{
+						link: 'newuser',
+							name: 'Newuser'
+					},
+			    
 		  	];
 
 			return {

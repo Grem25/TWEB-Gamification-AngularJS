@@ -18,10 +18,12 @@
 		'ngMdIcons',
 		'ngCookies',
 		'ngAnimate',
+		'ngTouch',
 		'ngSanitize',
 		'ui.router',
 		'home',
 		'scoreboard',
+		'newuser',
 	]);
 
 })();

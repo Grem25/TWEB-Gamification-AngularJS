@@ -25,12 +25,33 @@
 				return new Promise((resolve) => {
 
 					// fetch userScore from our API
-					$http.get("https://fcctop100.herokuapp.com/api/fccusers/top/recent")
+					$http.get("http://localhost:3000/scoreboard")
 						.then(function (response) {
 							userScore = response.data;
 							// send back userScore
 							resolve(userScore);
 						});
+
+
+				});
+
+			},
+
+			postFight: function (username) {
+				return new Promise((resolve) => {
+					
+					$http({
+						method: 'POST',
+						url: 'http://localhost:3000/battle',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						data: {
+							user1:username
+						}
+					}).then((res) => {
+						resolve(res);
+					});	
 
 
 				});
