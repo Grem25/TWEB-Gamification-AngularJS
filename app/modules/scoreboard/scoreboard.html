@@ -27,6 +27,23 @@
                         <div class="tableFooter">by <a href="www.github.com">Jérémie Zanone and Wojciech Myszkorowski</a></div>
                     </div>
                 </div>
+
+
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="myDialog">
+                      <md-dialog layout-padding="">
+                        <h2>{{vm.username}}'s stats</h2>
+                        <g ng-app="scoreboard" >
+                            <donut objet="vm" ></donut>
+                            <br>
+                            Win: {{vm.nbLoose}}
+                            <br>
+                            Loose:{{vm.nbWin}}
+                        </g>
+                      </md-dialog>
+                    </div>
+                </div>
         </md-card-content>
     </md-card>
 </div>
+

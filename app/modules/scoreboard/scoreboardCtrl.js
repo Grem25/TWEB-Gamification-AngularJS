@@ -11,9 +11,41 @@
 
 	angular
 		.module('scoreboard')
-		.controller('ScoreboardCtrl', Scoreboard);
+		.controller('ScoreboardCtrl', Scoreboard)
+		.directive('donut', function () {
+			return {
+				restrict: 'E',
+				scope: {
+					objet: '=',
+				},
+				link: function (scope, element) {
+					//custom colors          
+					var color = d3.scaleOrdinal()
+						.range(["red", "blue"]);
+					var data = [scope.objet.nbWin, scope.objet.nbLoose];
+					var width = 300;
+					var height = 300;
+					var pie = d3.pie().sort(null);
+					var arc = d3.arc()
+						.outerRadius(width / 2 * 0.9)
+						.innerRadius(width / 2 * 0.5)
+					var svg = d3.select(element[0]).append('svg')
+						.attr("width", width)
+						.attr("height", height)
+						.append("g")
+						.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+					// add the <path>s for each arc slice
+					svg.selectAll('path').data(pie(data))
+						.enter().append('path')
+						.style('stroke', 'white')
+						.attr('d', arc)
+						.attr('fill', function (d, i) { return color(i) });
+				}
+			}
 
-	Scoreboard.$inject = ['$scope','$mdDialog', 'scoreboardService'];
+		});
+
+	Scoreboard.$inject = ['$scope', '$mdDialog', 'scoreboardService'];
 
 	/*
 	* recommend
@@ -21,12 +53,17 @@
 	* and bindable members up top.
 	*/
 
+
+
 	function Scoreboard($scope, $mdDialog, scoreboardService) {
 		/*jshint validthis: true */
 		var vm = this;
 		vm.title = 'Scoreboard';
 		vm.reverseSort = true;
 		vm.sortColumn = "currentXP";
+		vm.nbWin = 40;
+		vm.nbLoose = 40;
+		vm.username = '';
 
 		vm.fetchUsers = function () {
 			scoreboardService.getUserScoreboard()
@@ -36,43 +73,62 @@
 				});
 		}
 
-		vm.fightLauncher = function(username) {
+		vm.fightLauncher = function (username) {
 			scoreboardService.postFight(username)
-					.then((data) => {
-						vm.fetchUsers();
-						$scope.$apply();
-					});
+				.then((data) => {
+					vm.fetchUsers();
+					$scope.$apply();
+				});
 		}
 
-		vm.fightInfo = function(ev,username) {
+		vm.fightInfo = function (ev, username) {
 			scoreboardService.postFightInfo(username)
-					.then((data) => {
-						let nbWin = 0;
-						let nbLoose = 0;
-
-						data.data.forEach(fight => {
-							if (fight.winner === username){
-								nbWin++;
-							}else if (fight.looser === username){
-								nbLoose++;
-							}
-						});
-
-						
-
-
-						$mdDialog.show(
-							$mdDialog.alert()
-								.parent(angular.element(document.querySelector('#popupContainer')))
-								.clickOutsideToClose(true)
-								.title(username +'\'s stats')
-								.textContent("Win: " + nbWin + " Loose: " + nbLoose + "\n" )
-								.ok('Got it!')
-								.targetEvent(ev)
-						);
-						$scope.$apply();
+				.then((data) => {
+					vm.nbLoose = 0;
+					vm.nbWin = 0;
+					data.data.forEach(fight => {
+						if (fight.winner === username) {
+							vm.nbWin++;
+						} else if (fight.looser === username) {
+							vm.nbLoose++;
+						}
 					});
+					$scope.$apply();
+					vm.username = username;
+
+					$mdDialog.show({
+						contentElement: '#myDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						clickOutsideToClose: true
+					});
+
+					/*
+					$mdDialog.show(
+						$mdDialog.alert()
+							.parent(angular.element(document.querySelector('#popupContainer')))
+							.clickOutsideToClose(true)
+							.title(username +'\'s stats')
+							.textContent("<code>Win: " + nbWin + " Loose: " + nbLoose + "</code>\n" )
+							.ok('Got it!')
+							.targetEvent(ev)
+					);*/
+
+
+					$scope.$apply();
+				});
 		}
+
+
+
+
+
+
+
+
+
+
+
 
 		vm.sortData = function (column) {
 			vm.reverseSort = vm.sortColumn === column ? !vm.reverseSort : false;
@@ -83,5 +139,6 @@
 
 
 	}
+
 
 })();
