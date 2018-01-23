@@ -13,7 +13,7 @@
 		.module('scoreboard')
 		.controller('ScoreboardCtrl', Scoreboard);
 
-	Scoreboard.$inject = ['$scope', 'scoreboardService'];
+	Scoreboard.$inject = ['$scope','$mdDialog', 'scoreboardService'];
 
 	/*
 	* recommend
@@ -21,7 +21,7 @@
 	* and bindable members up top.
 	*/
 
-	function Scoreboard($scope, scoreboardService) {
+	function Scoreboard($scope, $mdDialog, scoreboardService) {
 		/*jshint validthis: true */
 		var vm = this;
 		vm.title = 'Scoreboard';
@@ -37,10 +37,39 @@
 		}
 
 		vm.fightLauncher = function(username) {
-		
 			scoreboardService.postFight(username)
 					.then((data) => {
 						vm.fetchUsers();
+						$scope.$apply();
+					});
+		}
+
+		vm.fightInfo = function(ev,username) {
+			scoreboardService.postFightInfo(username)
+					.then((data) => {
+						let nbWin = 0;
+						let nbLoose = 0;
+
+						data.data.forEach(fight => {
+							if (fight.winner === username){
+								nbWin++;
+							}else if (fight.looser === username){
+								nbLoose++;
+							}
+						});
+
+						
+
+
+						$mdDialog.show(
+							$mdDialog.alert()
+								.parent(angular.element(document.querySelector('#popupContainer')))
+								.clickOutsideToClose(true)
+								.title(username +'\'s stats')
+								.textContent("Win: " + nbWin + " Loose: " + nbLoose + "\n" )
+								.ok('Got it!')
+								.targetEvent(ev)
+						);
 						$scope.$apply();
 					});
 		}
@@ -49,12 +78,6 @@
 			vm.reverseSort = vm.sortColumn === column ? !vm.reverseSort : false;
 			vm.sortColumn = column;
 		}
-
-		vm.getSortClass = function (column) {
-			return vm.sortColumn === column ? 
-			(vm.reverseSort ? 'fa-caret-up' : 'fa-caret-down') : '';
-		}
-
 
 		vm.fetchUsers();
 

@@ -56,6 +56,27 @@
 
 				});
 
+			},
+
+			postFightInfo: function (username) {
+				return new Promise((resolve) => {
+					
+					$http({
+						method: 'POST',
+						url: 'http://localhost:3000/historyfights',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						data: {
+							username
+						}
+					}).then((res) => {
+						resolve(res);
+					});	
+
+
+				});
+
 			}
 		}
 	}
