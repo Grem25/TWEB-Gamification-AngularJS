@@ -20,7 +20,7 @@
 				link: function (scope, element) {
 					//custom colors          
 					var color = d3.scaleOrdinal()
-						.range(["red", "blue"]);
+						.range(["#4CAF50", "#F44336"]);
 					var width = 300;
 					var height = 300;
 					var pie = d3.pie().sort(null);
@@ -73,8 +73,8 @@
 		vm.title = 'Scoreboard';
 		vm.reverseSort = true;
 		vm.sortColumn = "currentXP";
-		vm.nbWin = 40;
-		vm.nbLoose = 40;
+		vm.nbWin = 0;
+		vm.nbLoose = 0;
 		vm.username = '';
 
 		vm.fetchUsers = function () {
@@ -115,32 +115,9 @@
 						clickOutsideToClose: true
 					});
 
-					/*
-					$mdDialog.show(
-						$mdDialog.alert()
-							.parent(angular.element(document.querySelector('#popupContainer')))
-							.clickOutsideToClose(true)
-							.title(username +'\'s stats')
-							.textContent("<code>Win: " + nbWin + " Loose: " + nbLoose + "</code>\n" )
-							.ok('Got it!')
-							.targetEvent(ev)
-					);*/
-
-
 					$scope.$apply();
 				});
 		}
-
-
-
-
-
-
-
-
-
-
-
 
 		vm.sortData = function (column) {
 			vm.reverseSort = vm.sortColumn === column ? !vm.reverseSort : false;

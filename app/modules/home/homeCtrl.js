@@ -24,8 +24,8 @@
 	function Home(homeService) {
 		/*jshint validthis: true */
 		var vm = this;
-		vm.title = "Hello, gamification!";
-		vm.version = "1.0.0";
+		vm.title = "Hello, fighters!";
+		vm.version = "1.0.1";
 		vm.listFeatures = homeService.getFeaturesList();
 
 	}

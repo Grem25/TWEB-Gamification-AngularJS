@@ -13,6 +13,10 @@ table{
  
 }
 
+p, ul, li{
+	font-size: 18px;
+}
+
 th, td{
   padding: 15px;
   text-align: center;
