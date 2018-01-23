@@ -15,14 +15,12 @@
 		.directive('donut', function () {
 			return {
 				restrict: 'E',
-				scope: {
-					objet: '=',
-				},
+				controller: Scoreboard,
+        controllerAs: 'vm',
 				link: function (scope, element) {
 					//custom colors          
 					var color = d3.scaleOrdinal()
 						.range(["red", "blue"]);
-					var data = [scope.objet.nbWin, scope.objet.nbLoose];
 					var width = 300;
 					var height = 300;
 					var pie = d3.pie().sort(null);
@@ -34,12 +32,26 @@
 						.attr("height", height)
 						.append("g")
 						.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-					// add the <path>s for each arc slice
-					svg.selectAll('path').data(pie(data))
+					
+					// Remove the possibly already-existing paths of the chart, then draw the new ones based
+					// on the given parameter.
+					function buildPaths(data) {
+						svg.selectAll('path').remove();
+						svg.selectAll('path').data(pie(data))
 						.enter().append('path')
 						.style('stroke', 'white')
 						.attr('d', arc)
 						.attr('fill', function (d, i) { return color(i) });
+					}
+
+					// Watch the controller's context in order to trigger when on of its attributes changes.
+					scope.$watchCollection('vm', (newVm, oldVm) => {
+						// Redraw the chart's paths if the number of wins or defeats changed.
+						if (newVm.nbWin !== oldVm.nbWin || newVm.nbLoose !== oldVm.nbLoose) {
+							// add the <path>s for each arc slice
+							buildPaths([newVm.nbWin, newVm.nbLoose]);
+						}
+					});
 				}
 			}
 
