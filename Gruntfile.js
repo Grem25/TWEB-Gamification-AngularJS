@@ -110,7 +110,11 @@ module.exports = function (grunt) {
 		},
 
 		injector: {
-			options: {},
+			options: {
+					prefix: '.',
+					addRootSlash: true,
+					relative: true,
+			},
 			dev: {
 				files: {
 					'index.html': [
@@ -128,6 +132,7 @@ module.exports = function (grunt) {
 			production: {
 				files: {
 					'index.html': [
+						'bower.json',
 						'app/assets/css/**/*.css',
 						'app/assets/js/*.js'
 					]
@@ -163,10 +168,10 @@ module.exports = function (grunt) {
 		"jshint",
 		"exec",
 		"concat",
+		"uglyfy",
 		"ngtemplates",
 		"injector:production",
-		"concurrent",
-		"clean"
+		"concurrent"
 	]);
 
 	// Development task(s).
