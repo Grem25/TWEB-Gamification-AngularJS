@@ -1,0 +1,49 @@
+<div class="md-padding" flex layout-sm="column">
+    <md-card class="text-center">
+        <md-card-content>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="tableHeader">{{vm.title}}</div>
+                </div>
+            </div>
+            <table class="table-striped" ng-hide="!vm.usersScores.length">
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Level</th>
+                    <th>Score</th>
+                    <th>Battle</th>
+                </tr>
+                <tr ng-repeat="usr in vm.usersScores | orderBy: vm.sortColumn : vm.reverseSort">
+                    <td>{{$index+1}}</td>
+                    <td ng-click="vm.fightInfo($event, usr.username)">{{usr.username}}</td>
+                    <td>{{usr.level}}</td>
+                    <td>{{usr.currentXP}}</td>
+                    <td> <button ng-click="vm.fightLauncher(usr.username)">Fight</button></td>
+                </tr>
+            </table>
+            <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="tableFooter">by <a href="www.github.com">Jérémie Zanone and Wojciech Myszkorowski</a></div>
+                    </div>
+                </div>
+
+
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="myDialog">
+                      <md-dialog layout-padding="">
+                        <h2>{{vm.username}}'s stats</h2>
+                        <g ng-app="scoreboard" >
+                            <donut objet="vm" ></donut>
+                            <br>
+                            Win: {{vm.nbWin}}
+                            <br>
+                            Loose:{{vm.nbLoose}}
+                        </g>
+                      </md-dialog>
+                    </div>
+                </div>
+        </md-card-content>
+    </md-card>
+</div>
+
