@@ -36,7 +36,7 @@
 				vm.resetError();
 				vm.successMessage = null;
 
-				if (vm.newUsername) {
+				if (vm.newUsername && vm.newUsername.length < 35) {
 					newuserService.postNewUsername(vm.newUsername)
 						.then((data) => {
 							console.log(data);
