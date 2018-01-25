@@ -25,7 +25,7 @@
 				return new Promise((resolve) => {
 
 					// fetch userScore from our API
-					$http.get("http://localhost:3000/scoreboard")
+					$http.get("https://fierce-sierra-52540.herokuapp.com/scoreboard")
 						.then(function (response) {
 							userScore = response.data;
 							// send back userScore
@@ -42,7 +42,7 @@
 					
 					$http({
 						method: 'POST',
-						url: 'http://localhost:3000/battle',
+						url: 'https://fierce-sierra-52540.herokuapp.com/battle',
 						headers: {
 							'Content-Type': 'application/json'
 						},
@@ -63,7 +63,7 @@
 					
 					$http({
 						method: 'POST',
-						url: 'http://localhost:3000/historyfights',
+						url: 'https://fierce-sierra-52540.herokuapp.com/historyfights',
 						headers: {
 							'Content-Type': 'application/json'
 						},

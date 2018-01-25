@@ -25,7 +25,7 @@
 						
 						$http({
 							method: 'POST',
-							url: 'http://localhost:3000/user',
+							url: 'https://fierce-sierra-52540.herokuapp.com/user',
 							headers: {
 								'Content-Type': 'application/json'
 							},
