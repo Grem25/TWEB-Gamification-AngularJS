@@ -32,9 +32,11 @@ https://fierce-sierra-52540.herokuapp.com/init
 or to clear the data 
 https://fierce-sierra-52540.herokuapp.com/clearData
 
-The fights are random, you don't know who you are fight but you can see some statistics of yours results.
+The fights are random, you don't know who you are fight 
 
-Our alogorithm take to account if you have higher level you will then have more chance to win
+By clicking on your name you can see some statistics of yours results, how many fights won and lost in total.
+
+Our alogorithm take to account if you have higher level you will then have more chance to win.
 For example if you we have user_1 is level 3 and user_2 is level 6 then user_2 will have double chance of winning.
 
 ## Authors
